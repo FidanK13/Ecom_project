@@ -2,7 +2,8 @@ from django.contrib.admin.sites import site
 from django.db.models.deletion import RESTRICT
 from django.shortcuts import render
 from django.template.response import ContentNotRenderedError
-from .models import NavbarModel, Settings, Footer, MiniNavbarModel, Category, Sub_Category, ProductModel1, ProductModel2
+from .models import NavbarModel, Settings, Footer, MiniNavbarModel, Category, Sub_Category, \
+    ProductModel1, ProductModel2, ContactModel, ContactDetailsModel
 
 def home_view(request):
     context = {}
@@ -25,3 +26,24 @@ def home_view(request):
     context['subcategory_queryset'] = subcategory_queryset
 
     return render(request, 'index.html', context)
+
+def contact_view(request):
+    context={}
+    if request.method=='POST':
+        your_name=request.POST.get("your_name",None)
+        email=request.POST.get("email",None)
+        subject=request.POST.get("subject",None)
+        company=request.POST.get("company",None)
+        message=request.POST.get("message",None)
+        ContactModel.objects.create(
+            your_name=your_name,
+            email=email,
+            subject=subject,
+            company=company,
+            message=message
+        )
+    else:
+        return render(request, 'contact.html',context)
+    details_queryset=ContactDetailsModel.objects.all().first()
+    context['details_queryset']=details_queryset
+    return render(request,'contact.html', context)
