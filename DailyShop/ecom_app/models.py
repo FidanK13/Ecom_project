@@ -98,3 +98,20 @@ class Latest_Blog(models.Model):
 
 class ClientBrand(models.Model):
     image = models.ImageField(upload_to = 'shop_images', null=True, blank=True)
+    
+class ContactModel(models.Model):
+    your_name=models.CharField(max_length=100, null=True, blank=True)
+    email=models.EmailField()
+    subject=models.CharField(max_length=100, null=True, blank=True)
+    company=models.CharField(max_length=100, null=True, blank=True)
+    message=models.TextField()
+
+class ContactDetailsModel(models.Model):
+    title=models.CharField(max_length=100, null=True, blank=True)
+    subtitle=models.CharField(max_length=100, null=True, blank=True)
+    phone=models.CharField(max_length=100, null=True, blank=True)
+    email=models.EmailField()
+    address=models.CharField(max_length=100, null=True, blank=True)
+    name=models.CharField(max_length=100, null=True, blank=True)
+    description=models.CharField(max_length=100, null=True, blank=True)
+    map=models.CharField(max_length=700, null=True, blank=True)

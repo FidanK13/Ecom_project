@@ -207,27 +207,32 @@
             <ul class="nav navbar-nav">
               <li><a href="#">Men <span class="caret"></span></a>
                 <ul class="dropdown-menu">                
-                  <li><a href="#">Casual</a></li>
-                  <li><a href="#">Sports</a></li>
-                  <li><a href="#">Formal</a></li>
-                  <li><a href="#">Standard</a></li>                                                
-                  <li><a href="#">T-Shirts</a></li>
-                  <li><a href="#">Shirts</a></li>
-                  <li><a href="#">Jeans</a></li>
-                  <li><a href="#">Trousers</a></li>
-                </ul>
-              </li>
-              <li><a href="#">Women <span class="caret"></span></a>
-                <ul class="dropdown-menu">  
-                  <li><a href="#">Kurta & Kurti</a></li>                                                                
-                  <li><a href="#">Trousers</a></li>              
-                  <li><a href="#">Casual</a></li>
-                  <li><a href="#">Sports</a></li>
-                  <li><a href="#">Formal</a></li>                
-                  <li><a href="#">Sarees</a></li>
-                  <li><a href="#">Shoes</a></li>
-                </ul>
-              </li>
+              {% for i in navbar_queryset %}
+                {% if i.categories is False %}
+                  <li><a href="{{i.url}}">{{i.name}}</a></li>
+                {% else %}
+                  <li><a href="{{i.url}}">{{i.name}} <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                      {% for j in category_queryset %}
+                        {% if j.sub_categories is False %}
+                        <li><a href="{{j.url}}">{{j.name}}</a></li>
+                        <!-- <li>{{j.category_id}}{{i.id}}</li> -->
+                        {% else %}
+                          <li><a href="{{j.url}}">{{j.name}}<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                              {% for k in subcategory_queryset %}
+                                <!-- {% if k.subcategory.id == j.id %} -->
+                                  <li><a href="{{k.url}}">{{k.name}}</a></li>
+                                <!-- {% endif %} -->
+                              {% endfor %}                                    
+                            </ul>
+                        {% endif %}
+                      {% endfor %}
+                    </ul>
+                  </li>
+                {% endif %}
+              {% endfor %}
+         
               {% for i in navbar_queryset %}
               {% if i.categories is False %}
               <li><a href="{{i.url}}">{{i.name}}</a></li>

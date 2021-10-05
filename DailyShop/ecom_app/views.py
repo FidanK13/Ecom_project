@@ -1,13 +1,9 @@
 from django.contrib.admin.sites import site
 from django.db.models.deletion import RESTRICT
 from django.shortcuts import render
-from .models import ClientBrand, MenProduct,\
- NavbarModel, Settings, Footer,\
- MiniNavbarModel, Category,\
-ProductModel,\
- Banner, WomenProduct,\
- SportsProduct,ElectronicsProduct,\
- RedCard, Latest_Blog
+from .models import *
+from django.template.response import ContentNotRenderedError
+from .models import *
 
 def home_view(request):
     context = {}
@@ -39,4 +35,27 @@ def home_view(request):
     context['electronics_product_queryset'] = electronics_product_queryset
     context['latest_blog_queryset'] =latest_blog_queryset
     context['client_queryset'] = client_queryset
+    context['subcategory_queryset'] = subcategory_queryset
+
     return render(request, 'index.html', context)
+
+def contact_view(request):
+    context={}
+    if request.method=='POST':
+        your_name=request.POST.get("your_name",None)
+        email=request.POST.get("email",None)
+        subject=request.POST.get("subject",None)
+        company=request.POST.get("company",None)
+        message=request.POST.get("message",None)
+        ContactModel.objects.create(
+            your_name=your_name,
+            email=email,
+            subject=subject,
+            company=company,
+            message=message
+        )
+    else:
+        return render(request, 'contact.html',context)
+    details_queryset=ContactDetailsModel.objects.all().first()
+    context['details_queryset']=details_queryset
+    return render(request,'contact.html', context)
