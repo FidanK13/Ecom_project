@@ -160,3 +160,8 @@ def account_view(request):
         return render(request,'account.html', context)
 
     return render(request, 'account.html', context)
+
+def logout_view(request):
+    auth.logout(request)
+    return redirect('home_page')
+
