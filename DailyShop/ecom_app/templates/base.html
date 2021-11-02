@@ -213,7 +213,7 @@
               {% if i.categories is False %}
                 <li><a href="{{i.url}}">{{i.name}}</a></li>
               {% else %}
-                <li><a href="{% url 'product_page' name=i.name %}" class='id_class' data-id="{% url 'category_page' navbar_id=i.id %}">{{i.name}} <span class="caret"></span></a>
+                <li><a href="{% url 'product_page' name=i.id %}" class='id_class' data-id="{% url 'category_page' navbar_id=i.id %}">{{i.name}} <span class="caret"></span></a>
                   <ul class="dropdown-menu category">
 
                   </ul>
@@ -265,18 +265,6 @@
             <div class="row">
               <div class="col-md-3 col-sm-6">
                 <div class="aa-footer-widget">
-                  <h3>Main Menu</h3>
-                  <ul class="aa-footer-nav">
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Our Services</a></li>
-                    <li><a href="#">Our Products</a></li>
-                    <li><a href="#">About Us</a></li>
-                    <li><a href="#">Contact Us</a></li>
-                  </ul>
-                </div>
-              </div>
-              <div class="col-md-3 col-sm-6">
-                <div class="aa-footer-widget">
                   <div class="aa-footer-widget">
                     <h3>Knowledge Base</h3>
                     <ul class="aa-footer-nav">
@@ -289,10 +277,11 @@
                   </div>
                 </div>
               </div>
+              {% for z in footer_header %}
               <div class="col-md-3 col-sm-6">
                 <div class="aa-footer-widget">
                   <div class="aa-footer-widget">
-                    <h3>Useful Links</h3>
+                    <h3>{{z.header}}</h3>
                     <ul class="aa-footer-nav">
                       <li><a href="#">Site Map</a></li>
                       <li><a href="#">Search</a></li>
@@ -303,7 +292,8 @@
                   </div>
                 </div>
               </div>
-              <div class="col-md-3 col-sm-6">
+              {% endfor %}
+              <!-- <div class="col-md-3 col-sm-6">
                 <div class="aa-footer-widget">
                   <div class="aa-footer-widget">
                     <h3>Contact Us</h3>
@@ -320,7 +310,7 @@
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> -->
             </div>
           </div>
         </div>
