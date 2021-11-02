@@ -9,8 +9,10 @@
           <ul class="seq-canvas">
             <!-- single slide item -->
             {% for i in settings_queryset %}
+            {% if i.collection_name is not None %}
             <li>
               <div class="seq-model">
+                
                 <img data-seq src="{{i.background_image.url}}" alt="Men slide img" />
               </div>
               <div class="seq-title">
@@ -20,6 +22,7 @@
                 <a data-seq href="#" class="aa-shop-now-btn aa-secondary-btn">SHOP NOW</a>
               </div>
             </li>
+            {%endif%}
             {% endfor %}
             <!-- single slide item -->
             <!-- <li>
@@ -95,7 +98,7 @@
                     <img src="{{banner_queryset.image_1.url}}" alt="img">                    
                     <div class="aa-prom-content">
                       <span>{{banner_queryset.price_1}}</span>
-                      <h4><a href="#">{{banner_queryset.title_1}}</a></h4>                      
+                      <h4><a href="{{banner_queryset.url_1}}">{{banner_queryset.title_1}}</a></h4>                      
                     </div>
                   </div>
                 </div>
@@ -108,7 +111,7 @@
                       <img src="{{banner_queryset.image_2.url}}" alt="img">                      
                       <div class="aa-prom-content">
                         <span>{{banner_queryset.price_2}}</span>
-                        <h4><a href="#">{{banner_queryset.title_2}}</a></h4>                        
+                        <h4><a href="{{banner_queryset.url_2}}">{{banner_queryset.title_2}}</a></h4>                        
                       </div>
                     </div>
                   </div>
@@ -117,7 +120,7 @@
                       <img src="{{banner_queryset.image_3.url}}" alt="img">                      
                       <div class="aa-prom-content">
                         <span>{{banner_queryset.price_3}}</span>
-                        <h4><a href="#">{{banner_queryset.title_3}}</a></h4>                        
+                        <h4><a href="{{banner_queryset.url_3}}">{{banner_queryset.title_3}}</a></h4>                        
                       </div>
                     </div>
                   </div>
@@ -126,7 +129,7 @@
                       <img src="{{banner_queryset.image_4.url}}" alt="img">                      
                       <div class="aa-prom-content">
                         <span>{{banner_queryset.price_4}}</span>
-                        <h4><a href="#">{{banner_queryset.title_4}}</a></h4>                        
+                        <h4><a href="{{banner_queryset.url_4}}">{{banner_queryset.title_4}}</a></h4>                        
                       </div>
                     </div>
                   </div>
@@ -135,7 +138,7 @@
                       <img src="{{banner_queryset.image_5.url}}" alt="img">                      
                       <div class="aa-prom-content">
                         <span>{{banner_queryset.price_5}}</span>
-                        <h4><a href="#">{{banner_queryset.title_5}}</a></h4>                        
+                        <h4><a href="{{banner_queryset.url_5}}">{{banner_queryset.title_5}}</a></h4>                        
                       </div>
                     </div>
                   </div>
@@ -148,141 +151,6 @@
     </div>
   </section>           
   <!-- / Promo section -->
-  <!-- Products section -->
-  <section id="aa-product">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="row">
-            <div class="aa-product-area">
-              <div class="aa-product-inner">
-                <!-- start prduct navigation -->
-                 <ul class="nav nav-tabs aa-products-tab">
-                    <li class="active"><a href="#men" data-toggle="tab">Men</a></li>
-                    <li><a href="#women" data-toggle="tab">Women</a></li>
-                    <li><a href="#sports" data-toggle="tab">Sports</a></li>
-                    <li><a href="#electronics" data-toggle="tab">Electronics</a></li>
-                  </ul>
-                  <!-- Tab panes -->
-                  <div class="tab-content">
-                    <!-- Start men product category -->
-                    <div class="tab-pane fade in active" id="men">
-                      <ul class="aa-product-catg">
-                        <!-- start single product item -->
-                        {% for t in men_product_queryset %}
-                        <li>
-                          <figure>
-                            <a class="aa-product-img" href="#"><img src="{{t.image.url}}" alt="polo shirt img"></a>
-                            <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>{{t.title}}</a>
-                              <figcaption>
-                              <h4 class="aa-product-title"><a href="#">Polo T-Shirt</a></h4>
-                              <span class="aa-product-price">{{t.price}}</span>
-                            </figcaption>
-                          </figure>                        
-                          <div class="aa-product-hvr-content">
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
-                            <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>                          
-                          </div>
-                          <!-- product badge -->
-                          <span class="aa-badge aa-sale" href="#">SALE!</span>
-                        </li>
-                        <!-- start single product item -->
-                        {% endfor %}
-                      </ul>
-                      <a class="aa-browse-btn" href="#">Browse all Product <span class="fa fa-long-arrow-right"></span></a>
-                    </div>
-                    <!-- / men product category -->
-                    <!-- start women product category -->
-                    <div class="tab-pane fade" id="women">
-                      <ul class="aa-product-catg">
-                        <!-- start single product item -->
-                        {% for i in women_product_queryset %}
-                        <li>
-                          <figure>
-                            <a class="aa-product-img" href="#"><img src="{{i.image.url}}" alt="polo shirt img"></a>
-                            <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
-                            <figcaption>
-                              <h4 class="aa-product-title"><a href="#">{{i.title}}</a></h4>
-                              <span class="aa-product-price">$45.50</span><span class="aa-product-price"><del>$65.50</del></span>
-                            </figcaption>
-                          </figure>                         
-                          <div class="aa-product-hvr-content">
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
-                            <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>                            
-                          </div>
-                          <!-- product badge -->
-                          <span class="aa-badge aa-sale" href="#">SALE!</span>
-                        </li>
-                        {%endfor%}
-                       
-                      </ul>
-                      <a class="aa-browse-btn" href="#">Browse all Product <span class="fa fa-long-arrow-right"></span></a>
-                    </div>
-                    <!-- / women product category -->
-                    <!-- start sports product category -->
-                    <div class="tab-pane fade" id="sports">
-                      <ul class="aa-product-catg">
-                        <!-- start single product item -->
-                        {% for i in sports_product_queryset %}
-                        <li>
-                          <figure>
-                            <a class="aa-product-img" href="#"><img src="{{i.image.url}}" alt="polo shirt img"></a>
-                            <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
-                            <figcaption>
-                              <h4 class="aa-product-title"><a href="#">{{i.title}}</a></h4>
-                              <span class="aa-product-price">$67.50</span><span class="aa-product-price"><del>$65.50</del></span>
-                            </figcaption>
-                          </figure>                         
-                          <div class="aa-product-hvr-content">
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
-                            <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>                          
-                          </div>
-                          <!-- product badge -->
-                          <span class="aa-badge aa-sale" href="#">SALE!</span>
-                        </li>
-                        {% endfor%}
-                        
-                      </ul>
-                    </div>
-                    <!-- / sports product category -->
-                    <!-- start electronic product category -->
-                    <div class="tab-pane fade" id="electronics">
-                       <ul class="aa-product-catg">
-                        <!-- start single product item -->
-                        {% for i in electronics_product_queryset %}
-                        <li>
-                          <figure>
-                            <a class="aa-product-img" href="#"><img src="{{i.image.url}}" alt="polo shirt img"></a>
-                            <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
-                            <figcaption>
-                              <h4 class="aa-product-title"><a href="#">{{i.title}}</a></h4>
-                              <span class="aa-product-price">$34.20</span><span class="aa-product-price"><del>$65.50</del></span>
-                            </figcaption>
-                          </figure>                         
-                          <div class="aa-product-hvr-content">
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
-                            <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>                            
-                          </div>
-                          <!-- product badge -->
-                          <span class="aa-badge aa-sale" href="#">SALE!</span>
-                        </li>
-                        {% endfor %}
-                       
-                      </ul>
-                      <a class="aa-browse-btn" href="#">Browse all Product <span class="fa fa-long-arrow-right"></span></a>
-                    </div>
-                    <!-- / electronic product category -->
-                  
-              </div>  
-            </div>
-          </div>
-        </div>
-      </div>
-  </section>
 
   <!-- Support section -->
   <section id="aa-support">
@@ -361,7 +229,7 @@
               {% for i in latest_blog_queryset %}
               <div class="col-md-4 col-sm-4">
                 <div class="aa-latest-blog-single">
-                  <figure class="aa-blog-img">                    
+                  <figure class="aa-blog-img">                  
                     <a href="#"><img src="{{i.image.url}}" alt="img"></a>  
                       <figcaption class="aa-blog-img-caption">
                       <span href="#"><i class="fa fa-eye"></i>5K</span>
