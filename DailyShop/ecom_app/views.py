@@ -5,7 +5,6 @@ from django.shortcuts import render, redirect
 from .models import Catalog_Products, ClientBrand, ContactDetailsModel, ContactModel, FooterHeader,\
  NavbarModel, Settings, Footer,\
  MiniNavbarModel, Category,\
-ProductModel,\
  Banner, \
  RedCard, Latest_Blog
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -20,7 +19,7 @@ def home_view(request):
     # footer_queryset = Footer.objects.all()
     # mininavbar_queryset = MiniNavbarModel.objects.all()
     redcard_queryset = RedCard.objects.all()
-    product_queryset = ProductModel.objects.all()
+    # product_queryset = ProductModel.objects.all()
     # category_queryset = Category.objects.filter(category_id=navbar_id)
     banner_queryset = Banner.objects.all().first
     # men_product_queryset = MenProduct.objects.all()
@@ -35,7 +34,7 @@ def home_view(request):
     # context['navbar_queryset'] = navbar_queryset
     # context['settings_queryset'] = settings_queryset
     # context['footer_queryset'] = footer_queryset
-    context['product_queryset'] = product_queryset
+    # context['product_queryset'] = product_queryset
     context['redcard'] = redcard_queryset
     # context['category_queryset'] = category_queryset
     context['banner_queryset'] = banner_queryset
@@ -72,10 +71,10 @@ def contact_view(request):
 
 def category_view(request, navbar_id):
     context={}
-    product_queryset = ProductModel.objects.filter(navbar_id=navbar_id)
+    # product_queryset = ProductModel.objects.filter(navbar_id=navbar_id)
     category_queryset=Category.objects.filter(category_id=navbar_id)
     context['category_queryset'] = category_queryset
-    context['product_queryset'] = product_queryset
+    # context['product_queryset'] = product_queryset
     return render(request, 'category.html', context)
 
 def base_view(request):
@@ -85,7 +84,7 @@ def base_view(request):
     footer_queryset = Footer.objects.all()
     # mininavbar_queryset = MiniNavbarModel.objects.all()
     redcard_queryset = RedCard.objects.all()
-    product_queryset = ProductModel.objects.all()
+    # product_queryset = ProductModel.objects.all()
     # category_queryset = Category.objects.all()
     banner_queryset = Banner.objects.all().first
     # men_product_queryset = MenProduct.objects.all()
@@ -100,7 +99,7 @@ def base_view(request):
     context['navbar_queryset'] = navbar_queryset
     context['settings_queryset'] = settings_queryset
     context['footer_queryset'] = footer_queryset
-    context['product_queryset'] = product_queryset
+    # context['product_queryset'] = product_queryset
     context['redcard'] = redcard_queryset
     # context['category_queryset'] = category_queryset
     context['banner_queryset'] = banner_queryset
@@ -120,8 +119,8 @@ def product_detail_view(request, product_id):
     
     navbar_queryset = NavbarModel.objects.all()
     context['navbar_queryset'] = navbar_queryset
-    product_queryset=ProductModel.objects.filter(id=product_id)
-    context['product_queryset']= product_queryset
+    # product_queryset=ProductModel.objects.filter(id=product_id)
+    # context['product_queryset']= product_queryset
     catalog_product = Catalog_Products.objects.filter(id=product_id)
     context['catalog_product'] = catalog_product
     return render(request, 'product-detail.html', context)

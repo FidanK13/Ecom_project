@@ -1,11 +1,11 @@
 from django.contrib import admin
-from ecom_app.models import ContactDetailsModel, ContactModel, FooterHeader, NavbarModel, Settings, Footer, ProductModel, Category, Banner, Catalog_Products, RedCard, Latest_Blog, ClientBrand
+from ecom_app.models import ContactDetailsModel, ContactModel, FooterHeader, NavbarModel, Settings, Footer, Category, Banner, Catalog_Products, RedCard, Latest_Blog, ClientBrand
 # Register your models here.
 
 admin.site.register(NavbarModel)
 admin.site.register(Settings)
 admin.site.register(Footer)
-admin.site.register(ProductModel)
+# admin.site.register(ProductModel)
 admin.site.register(Category)
 
 admin.site.register(Banner)
