@@ -25,7 +25,7 @@ class MiniNavbarModel(models.Model):
         return f'{self.name}'
 
 class Settings(models.Model):
-    background_image = models.ImageField(upload_to='shop_images', default='miles.jpg')
+    background_image = models.ImageField(upload_to='shop_images', default='1.jpg')
     collection_name = models.CharField(max_length=100, null=True, blank=True)
     save_up = models.IntegerField(null=True, blank=True)
     collection_text = models.CharField(max_length=100, null=True, blank=True)
@@ -36,7 +36,7 @@ class Settings(models.Model):
 
 
 class RedCard(models.Model):
-    image = models.ImageField(upload_to='shop_images', default='miles.jpg')
+    image = models.ImageField(upload_to='shop_images', default='testimonial-img-1.jpg')
     text = models.CharField(max_length=100, null=True, blank=True)
     name = models.CharField(max_length=100, null=True, blank=True)
 
@@ -70,20 +70,20 @@ class Category(models.Model):
     def __str__(self):
         return f'{self.name}'
 
-class ProductModel(models.Model):
-    navbar_id = models.ManyToManyField('NavbarModel')
-    title = models.CharField(max_length=255, null=True, blank=True)
-    price = models.CharField(max_length=255, null=True, blank=True)
-    image = models.ImageField(upload_to='shop_images', default='miles.jpg')
-    url = models.URLField(max_length=255, null=True, blank=True)
+# class ProductModel(models.Model):
+#     navbar_id = models.ManyToManyField('NavbarModel')
+#     title = models.CharField(max_length=255, null=True, blank=True)
+#     price = models.CharField(max_length=255, null=True, blank=True)
+#     image = models.ImageField(upload_to='shop_images', default='miles.jpg')
+#     url = models.URLField(max_length=255, null=True, blank=True)
 
 class Catalog_Products(models.Model):
     related_navbar = models.ForeignKey('NavbarModel', null=True, blank=True, on_delete=CASCADE, related_name='catalog_products')
     title = models.CharField(max_length=255, null=True, blank=True)
     price = models.CharField(max_length=255, null=True, blank=True)
     del_price = models.CharField(max_length=255, null=True, blank=True)
-    image = models.ImageField(upload_to='shop_images', default='miles.jpg')
-    background_image = models.ImageField(upload_to = 'shop_images', null=True, blank=True)
+    image = models.ImageField(upload_to='shop_images', default='polo-shirt-1.png')
+    background_image = models.ImageField(upload_to = 'shop_images', null=True, blank=True, default='fashion-header-bg-8.jpg')
     
     class text(models.TextChoices):
         in_stock = 'In stock'
@@ -105,35 +105,35 @@ class Catalog_Products(models.Model):
 class Banner(models.Model):
     title_1 = models.CharField(max_length=255, null=True, blank=True)
     price_1 = models.CharField(max_length=255, null=True, blank=True)
-    image_1= models.ImageField(upload_to='shop_images', default='miles.jpg')
+    image_1= models.ImageField(upload_to='shop_images', default='promo-banner-1.jpg')
     url_1 = models.URLField(max_length=255, null=True, blank=True)
 
     title_2 = models.CharField(max_length=255, null=True, blank=True)
     price_2 = models.CharField(max_length=255, null=True, blank=True)
-    image_2= models.ImageField(upload_to='shop_images', default='miles.jpg')
+    image_2=  models.ImageField(upload_to='shop_images', default='promo-banner-3.jpg')
     url_2 = models.URLField(max_length=255, null=True, blank=True)
 
     title_3 = models.CharField(max_length=255, null=True, blank=True)
     price_3 = models.CharField(max_length=255, null=True, blank=True)
-    image_3= models.ImageField(upload_to='shop_images', default='miles.jpg')
+    image_3=  models.ImageField(upload_to='shop_images', default='promo-banner-3.jpg')
     url_3 = models.URLField(max_length=255, null=True, blank=True)
 
     title_4 = models.CharField(max_length=255, null=True, blank=True)
     price_4 = models.CharField(max_length=255, null=True, blank=True)
-    image_4= models.ImageField(upload_to='shop_images', default='miles.jpg')
+    image_4=  models.ImageField(upload_to='shop_images', default='promo-banner-3.jpg')
     url_4 = models.URLField(max_length=255, null=True, blank=True)
 
     title_5 = models.CharField(max_length=255, null=True, blank=True)
     price_5 = models.CharField(max_length=255, null=True, blank=True)
-    image_5= models.ImageField(upload_to='shop_images', default='miles.jpg')
+    image_5=  models.ImageField(upload_to='shop_images', default='promo-banner-3.jpg')
     url_5 = models.URLField(max_length=255, null=True, blank=True)
 
 class Latest_Blog(models.Model):
-    image = models.ImageField(upload_to='shop_images', default='miles.jpg')
+    image = models.ImageField(upload_to='shop_images', default='promo-banner-1.jpg')
     text = models.CharField(max_length=255, null=True, blank=True)
 
 class ClientBrand(models.Model):
-    image = models.ImageField(upload_to='shop_images', default='miles.jpg')
+    image = models.ImageField(upload_to='shop_images', default='client-brand-css3.png')
 
 class ContactModel(models.Model):
     your_name=models.CharField(max_length=100, null=True, blank=True)
