@@ -3,6 +3,7 @@ from django.db import models
 from django.db.models.base import Model, ModelState
 from django.db.models.deletion import CASCADE
 from django.db.models.enums import Choices, TextChoices
+from django.db.models.fields import BigAutoField
 from django.db.models.fields.reverse_related import ManyToManyRel
 from django.db.models.manager import ManagerDescriptor
 from django.db.models.query_utils import subclasses
@@ -79,6 +80,7 @@ class Category(models.Model):
 
 class Catalog_Products(models.Model):
     related_navbar = models.ForeignKey('NavbarModel', null=True, blank=True, on_delete=CASCADE, related_name='catalog_products')
+    related_category = models.ForeignKey('Category', null=True, blank=True, on_delete=CASCADE)
     title = models.CharField(max_length=255, null=True, blank=True)
     price = models.CharField(max_length=255, null=True, blank=True)
     del_price = models.CharField(max_length=255, null=True, blank=True)

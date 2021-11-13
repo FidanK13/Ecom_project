@@ -1,4 +1,6 @@
 {% for category in category_queryset%}
-<li><a href="#">{{category.name}}</a></li>
+
+<li>{% for navbar in navbar %}{% if navbar.categories is True %}<a href="#">{%endif%}{%endfor%}{{category.name}}{{category.id}}</a></li>
+
 {%endfor%}
 

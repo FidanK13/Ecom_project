@@ -71,9 +71,11 @@ def contact_view(request):
 
 def category_view(request, navbar_id):
     context={}
+    navbar = NavbarModel.objects.all()
     # product_queryset = ProductModel.objects.filter(navbar_id=navbar_id)
     category_queryset=Category.objects.filter(category_id=navbar_id)
     context['category_queryset'] = category_queryset
+    context['navbar'] = navbar
     # context['product_queryset'] = product_queryset
     return render(request, 'category.html', context)
 
@@ -94,8 +96,9 @@ def base_view(request):
     latest_blog_queryset = Latest_Blog.objects.all()
     client_queryset = ClientBrand.objects.all() 
     footer_header = FooterHeader.objects.all()
+    category = Category.objects.all()
   
-    
+    context['category'] = category
     context['navbar_queryset'] = navbar_queryset
     context['settings_queryset'] = settings_queryset
     context['footer_queryset'] = footer_queryset
@@ -134,6 +137,17 @@ def product_view(request, name):
     catalog_product = Catalog_Products.objects.filter(related_navbar=name)
     context['catalog_product'] = catalog_product
     context['settings'] = settings
+    return render(request, 'product.html', context)
+
+def filtired_product_view(request, name, catalog_id):
+    context = {}
+
+    settings = Settings.objects.filter(page_id=name)
+    navbar_queryset = NavbarModel.objects.all()
+    context['navbar_queryset'] = navbar_queryset
+    catalog_product = Catalog_Products.objects.filter(related_category=catalog_id, related_navbar=name)
+    context['settings'] = settings
+    context['catalog_product'] = catalog_product
     return render(request, 'product.html', context)
 
 def account_view(request):
