@@ -96,8 +96,9 @@ def base_view(request):
     latest_blog_queryset = Latest_Blog.objects.all()
     client_queryset = ClientBrand.objects.all() 
     footer_header = FooterHeader.objects.all()
+    category = Category.objects.all()
   
-    
+    context['category'] = category
     context['navbar_queryset'] = navbar_queryset
     context['settings_queryset'] = settings_queryset
     context['footer_queryset'] = footer_queryset
