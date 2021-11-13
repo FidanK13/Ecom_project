@@ -211,7 +211,7 @@
             <ul class="nav navbar-nav">
               {% for navbar in navbar_queryset %}
               {% if navbar.categories is False %}
-              <li><a href="{% url 'product_page' name=navbar.id %}">{{navbar.name}}</a></li>
+              <li><a href="{{navbar.url}}">{{navbar.name}}</a></li>
               {% elif navbar.categories is True %}
               <li><a href="{% url 'product_page' name=navbar.id %}">{{navbar.name}} <span class="caret"></span></a>
                 <ul class="dropdown-menu">  
