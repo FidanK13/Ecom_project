@@ -86,6 +86,7 @@ class Catalog_Products(models.Model):
     del_price = models.CharField(max_length=255, null=True, blank=True)
     image = models.ImageField(upload_to='shop_images', default='polo-shirt-1.png')
     background_image = models.ImageField(upload_to = 'shop_images', null=True, blank=True, default='fashion-header-bg-8.jpg')
+    description = models.CharField(max_length=255, null=True, blank=True)
     
     class text(models.TextChoices):
         in_stock = 'In stock'
@@ -101,7 +102,9 @@ class Catalog_Products(models.Model):
     def __str__(self):
         return f'{self.title}'
 
-
+class Product_Images(models.Model):
+    related_product = models.ForeignKey(Catalog_Products, null=True, blank=True, on_delete=CASCADE)
+    image = models.ImageField(upload_to = 'shop_images', null=True, blank=True, default='polo-shirt-3.png')
 
 
 class Banner(models.Model):
@@ -153,3 +156,8 @@ class ContactDetailsModel(models.Model):
     name=models.CharField(max_length=100, null=True, blank=True)
     description=models.CharField(max_length=100, null=True, blank=True)
     map=models.CharField(max_length=700, null=True, blank=True)
+
+class ReviewModel(models.Model):
+    your_review = models.CharField(max_length=100, null=True, blank=True)
+    name=models.CharField(max_length=100, null=True, blank=True)
+    email=models.EmailField()
