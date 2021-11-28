@@ -7,7 +7,14 @@ from django.db.models.fields import BigAutoField
 from django.db.models.fields.reverse_related import ManyToManyRel
 from django.db.models.manager import ManagerDescriptor
 from django.db.models.query_utils import subclasses
+from django.contrib.auth.models import AbstractUser
+from django.utils.translation import gettext_lazy as _
+# Create your models here.
 
+
+class CustomUser(AbstractUser):
+    email = models.EmailField(_('email address'), unique=True)
+    is_active = models.BooleanField(default=False)
 # Create your models here.
 
 class NavbarModel(models.Model):

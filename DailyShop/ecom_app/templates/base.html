@@ -109,7 +109,8 @@
                   <li class="hidden-xs"><a href="cart.html">My Cart</a></li>
                   <li class="hidden-xs"><a href="checkout.html">Checkout</a></li>
                   {% else %}
-                  <li><a href="{% url 'account_page' %}">Login-Register</a></li>
+                  <li><a href="{% url 'login_page' %}">Login</a></li>
+                  <li><a href="{% url 'register_page' %}">Register</a></li>
                    {% endif %}
                 </ul>
               </div>

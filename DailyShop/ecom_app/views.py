@@ -10,7 +10,12 @@ from .models import Catalog_Products, ClientBrand, ContactDetailsModel, ContactM
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.models import auth
 from django.contrib.auth import login, authenticate
-from django.contrib.auth.forms import UserCreationForm
+#from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import views as auth_views
+from django.views import generic
+from django.urls import reverse_lazy
+from .forms import LoginForm, RegisterForm
+
 
 def home_view(request):
     context = {}
@@ -164,7 +169,7 @@ def filtired_product_view(request, name, catalog_id):
     context['settings'] = settings
     context['catalog_product'] = catalog_product
     return render(request, 'product.html', context)
-
+'''
 def account_view(request):
 
     context={}
@@ -196,7 +201,18 @@ def account_view(request):
         return render(request,'account.html', context)
 
     return render(request, 'account.html', context)
-
+'''
 def logout_view(request):
     auth.logout(request)
     return redirect('home_page')
+
+class login_view(auth_views.LoginView):
+    form_class = LoginForm
+    template_name = 'login.html'
+    #success_url = reverse_lazy('home_page')
+
+class register_view(generic.CreateView):
+    form_class = RegisterForm
+    template_name = 'register.html'
+    success_url = reverse_lazy('login_page')
+
