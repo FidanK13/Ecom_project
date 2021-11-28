@@ -3,7 +3,7 @@ from django.contrib.admin.sites import site
 from django.db.models.deletion import RESTRICT
 from django.shortcuts import render, redirect
 from .models import Catalog_Products, ClientBrand, ContactDetailsModel, ContactModel, FooterHeader,\
- NavbarModel, Settings, Footer,\
+ NavbarModel, Product_Images, ReviewModel, Settings, Footer,\
  MiniNavbarModel, Category,\
  Banner, \
  RedCard, Latest_Blog
@@ -117,15 +117,30 @@ def base_view(request):
 
     return render(request, 'base.html', context)
 
-def product_detail_view(request, product_id):
+def product_detail_view(request, product_id, related_product):
     context = {}
     
+    image_queryset = Product_Images.objects.filter(related_product=related_product)
     navbar_queryset = NavbarModel.objects.all()
     context['navbar_queryset'] = navbar_queryset
     # product_queryset=ProductModel.objects.filter(id=product_id)
     # context['product_queryset']= product_queryset
     catalog_product = Catalog_Products.objects.filter(id=product_id)
     context['catalog_product'] = catalog_product
+    context['image_queryset'] = image_queryset
+
+    if request.method=='POST':
+        name=request.POST.get("name",None)
+        email=request.POST.get("email",None)
+        your_review=request.POST.get("your_review",None)
+        ReviewModel.objects.create(
+            name=name,
+            email=email,
+            your_review=your_review
+        )
+    else:
+        return render(request, 'product-detail.html',context)
+
     return render(request, 'product-detail.html', context)
 
 def product_view(request, name):
