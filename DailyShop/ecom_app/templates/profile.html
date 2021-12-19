@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    {% for i in profile_queryset %}
+    <div class="simpleLens-big-image-container"><a data-lens-image="{{i.image.url}}" class="simpleLens-lens-image">
+        <img src="{{i.image.url}}" class="simpleLens-big-image"></a></div>
+    <h1> {{i.name }} {{i.surname}} </h1>
+    <p> Birthdate: {{ i.birthdate }}</p>
+    <p> Gender: {{ i.gender }}</p>
+    <p> Phone: {{ i.phone }}</p>
+    <p> Address: {{ i.address }}</p>
+    {% endfor %}
+
+    <a href="{% url 'profile_update_page' user=request.user.id %}" title="" class="btn btn-default">Edit Profile</a>
+
+
+  <!-- footer -->
+{% endblock %}

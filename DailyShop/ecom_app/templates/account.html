@@ -17,11 +17,14 @@
                 <h4>Login</h4>
                  <form method="POST" action="{% url 'account_page' %}" class="aa-login-form">
                    {% csrf_token %}
+                    <input type='hidden' name='action' value='login'>
+                     {{ LoginForm.as_p }}
+
                   <label for="">Username or Email address<span>*</span></label>
                    <input type="text" name="username" placeholder="Username or email">
                    <label for="">Password<span>*</span></label>
                     <input type="password" name="password" placeholder="Password">
-                    <button type="submit" class="aa-browse-btn">Login</button>
+                    <button type="submit"  class="aa-browse-btn">Login</button>
                     <label class="rememberme" for="rememberme"><input type="checkbox" id="rememberme"> Remember me </label>
                     <p class="aa-lost-password"><a href="#">Lost your password?</a></p>
                   </form>
@@ -32,9 +35,11 @@
                  <h4>Register</h4>
                  <form method="POST" action="{% url 'account_page' %}" class="aa-login-form">
                      {% csrf_token %}
-                     {{ form.as_p }}
+                     <input type='hidden' name='action' value='register'>
 
-                    <button type="submit" class="aa-browse-btn">Register</button>                    
+                     {{ RegisterForm.as_p }}
+
+                    <button type="submit" class="aa-browse-btn">Register</button>
                   </form>
                 </div>
               </div>
