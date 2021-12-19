@@ -6,11 +6,17 @@ from .models import Catalog_Products, ClientBrand, ContactDetailsModel, ContactM
  NavbarModel, Product_Images, ReviewModel, Settings, Footer,\
  MiniNavbarModel, Category,\
  Banner, \
- RedCard, Latest_Blog
+ RedCard, Latest_Blog, ProfileModel
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.models import auth
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import views as auth_views
+from django.views import generic
+from django.urls import reverse_lazy
+from django.views.generic import FormView
+from .forms import LoginForm, RegisterForm, ProfileForm
+
 
 def home_view(request):
     context = {}
@@ -164,7 +170,7 @@ def filtired_product_view(request, name, catalog_id):
     context['settings'] = settings
     context['catalog_product'] = catalog_product
     return render(request, 'product.html', context)
-
+'''
 def account_view(request):
 
     context={}
@@ -196,7 +202,120 @@ def account_view(request):
         return render(request,'account.html', context)
 
     return render(request, 'account.html', context)
-
+'''
 def logout_view(request):
     auth.logout(request)
     return redirect('home_page')
+
+class login_view(auth_views.LoginView):
+    form_class = LoginForm
+    template_name = 'login.html'
+    #success_url = reverse_lazy('home_page')
+
+
+class register_view(generic.CreateView):
+    form_class = RegisterForm  #.fields['is_activated'].initial = False  #.cleaned_data(is_activated=False)   #changed_data.__setattr__(self,'is_activated',False)
+    template_name = 'register.html'
+    success_url = reverse_lazy('login_page')
+
+
+class account_view(auth_views.LoginView): #, generic.CreateView), auth_views.LoginView)  FormView
+    template_name = 'account.html'
+    #def get_initial(self, request, *args, **kwargs):
+    #form1 = LoginForm  # {'login': LoginForm, 'register': RegisterForm}
+    #form2 = RegisterForm  # {'login': LoginForm, 'register': RegisterForm}
+    def post(self, request):
+        #instantiate all unique forms (using prefix) as unbound
+        LoginForm    = LoginForm(prefix='LoginForm')
+        RegisterForm = RegisterForm(prefix='RegisterForm')
+
+        # determine which form is submitting (based on hidden input called 'action')
+        action = self.request.POST['action']
+
+        # bind to POST and process the correct form
+        if (action == 'login'):
+            LoginForm = LoginForm(request.POST, prefix='LoginForm')
+            if LoginForm.is_valid():
+                # user form validated, code away..
+                success_url = reverse_lazy('home_page')
+
+        elif (action == 'register'):
+            RegisterForm = RegisterForm(request.POST, prefix='RegisterForm')
+            if RegisterForm.is_valid():
+                # billing form validated, code away..
+                success_url = reverse_lazy('home_page')
+
+        # prep context
+        context = {
+            'LoginForm':    LoginForm,
+            'RegisterForm': RegisterForm,
+        }
+        return render(request, 'accounts/account.html', context)
+
+def profile_view(request, user):
+    context = {}
+    profile_queryset = ProfileModel.objects.filter(user=user)
+    '''
+    form=ProfileForm()
+    if request.method == 'POST':
+        form = ProfileForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return render(request, 'profile.html', context)
+        else:
+                    # form=UserCreationForm()
+            context['form'] = form
+                    # messages.error(request,form.errors)
+            return render(request, 'profile.html', context)
+
+
+
+    context['form'] = form
+    '''
+    context['profile_queryset'] = profile_queryset
+
+    return render(request,'profile.html',context)
+
+
+def profile_update_view(request, user):
+    context={}
+    profile_queryset = ProfileModel.objects.filter(user=user).first()
+    update_data =ProfileModel.objects.filter(user=user).first()
+    form=ProfileForm(instance=update_data )
+    if request.method=='POST':
+        #image=request.FILES.get('image')  #.getlist('images_all')
+        form=ProfileForm(request.POST, request.FILES,instance=update_data) # , request.FILES)
+        if form.is_valid():
+            form=form.save(commit=False)
+            form.user=request.user
+            form.save()
+            '''
+            ProfileModel.objects.update_or_create(
+                user=form.user,
+                image=image
+            )
+            '''
+            #context['form'] = form
+            #return render(request,'profile.html',context)
+
+            return redirect('home_page')
+
+        '''
+            for i in images:
+                WorkImageModel.objects.update_or_create(
+                    work_id_id = form.id,
+                    images=i
+                )
+            
+            return redirect('profile_page')
+
+        else:
+            context['form']=form
+            #messages.error(request,form.errors)
+            return render(request,'profile_update.html',context)
+        '''
+    context['profile_queryset'] = profile_queryset
+
+    context['form'] = form
+    return render(request, 'profile_update.html', context)
+

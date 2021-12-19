@@ -104,12 +104,16 @@
               <div class="aa-header-top-right">
                 <ul class="aa-head-top-nav-right">
                   {% if request.user.is_authenticated %}
+                  <li><a href="{% url 'profile_page' user=request.user.id %}">{{request.user}}</a></li>
+
                   <li><a href="{% url 'logout_page' %}">Logout</a></li>
                    <li class="hidden-xs"><a href="wishlist.html">Wishlist</a></li>
                   <li class="hidden-xs"><a href="cart.html">My Cart</a></li>
                   <li class="hidden-xs"><a href="checkout.html">Checkout</a></li>
                   {% else %}
-                  <li><a href="{% url 'account_page' %}">Login-Register</a></li>
+                  <li><a href="{% url 'login_page' %}">Login</a></li>
+                  <li><a href="{% url 'register_page' %}">Register</a></li>
+
                    {% endif %}
                 </ul>
               </div>

@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <div class="simpleLens-big-image-container"><a data-lens-image="{{profile_queryset.image.url}}" class="simpleLens-lens-image">
+        <img src="{{profile_queryset.image.url}}" class="simpleLens-big-image"></a></div>
+    <form class="comments-form contact-form" action="" method="POST" enctype="multipart/form-data">
+
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Update Profile">
+
+    </form>
+  <!-- footer -->
+{% endblock %}

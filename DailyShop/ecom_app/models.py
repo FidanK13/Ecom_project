@@ -7,7 +7,14 @@ from django.db.models.fields import BigAutoField
 from django.db.models.fields.reverse_related import ManyToManyRel
 from django.db.models.manager import ManagerDescriptor
 from django.db.models.query_utils import subclasses
+from django.contrib.auth.models import AbstractUser
+from django.utils.translation import gettext_lazy as _
+# Create your models here.
 
+
+class CustomUser(AbstractUser):
+    email = models.EmailField(_('email address'), unique=True)
+    #is_active = models.BooleanField(default=True)
 # Create your models here.
 
 class NavbarModel(models.Model):
@@ -161,3 +168,18 @@ class ReviewModel(models.Model):
     your_review = models.CharField(max_length=100, null=True, blank=True)
     name=models.CharField(max_length=100, null=True, blank=True)
     email=models.EmailField()
+
+class ProfileModel(models.Model):
+    user = models.ForeignKey(CustomUser, null=True, blank=True, on_delete=CASCADE)
+    name=models.CharField(max_length=100, null=True, blank=True)
+    surname=models.CharField(max_length=100, null=True, blank=True)
+    birthdate=models.DateField(null=True, blank=True)
+    phone=models.CharField(max_length=100, null=True, blank=True)
+    address=models.CharField(max_length=100, null=True, blank=True)
+    image = models.ImageField(upload_to='profile_images', null=True, blank=True, help_text='profile picture', default='client-brand-css3.png')
+    class gender(models.TextChoices):
+        female = 'Female'
+        male = 'Male'
+
+    gender = models.TextField(choices=gender.choices, null=True, blank=True)
+
